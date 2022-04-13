@@ -72,6 +72,31 @@ namespace CrudWindowsFormsAddoNet
         
     }
 
+    public void Add(string Codigo, string Descripcion, decimal PrecioUnitario, decimal PrecioCaja)
+    {
+        string query = "insert into Items_Centrales(Codigo, Descripcion, Precio_Unitario, Precio_Caja)" + "(@Codigo, @Descripcion, @Precio_Unitario, @Precio_Caja)";
+
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Codigo", Codigo);
+            command.Parameters.AddWithValue("@Descripcion", Descripcion);
+            command.Parameters.AddWithValue("@Precio_Unitario", PrecioUnitario);
+            command.Parameters.AddWithValue("@Precio_Caja", PrecioCaja);
+
+            try
+            {
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Hay un error en la base de datos" + ex.Message);
+            }
+
+        }
+    }
     public class ItemCentral
     {
         public int Id { get; set; }

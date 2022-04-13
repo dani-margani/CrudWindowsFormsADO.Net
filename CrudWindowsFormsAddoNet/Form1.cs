@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace CrudWindowsFormsAddoNet
 {
-    public partial class Form1 : Form
+    public partial class FrmMiCrud : Form
     {
-        public Form1()
+        public FrmMiCrud()
         {
             InitializeComponent();
         }
@@ -29,5 +29,19 @@ namespace CrudWindowsFormsAddoNet
         {
             Refresh();
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            Refresh();
+        }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            FrmNuevo frm = new FrmNuevo();
+            frm.ShowDialog();
+
+        }
     }
 }
+
+
