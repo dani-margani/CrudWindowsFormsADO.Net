@@ -22,7 +22,7 @@ namespace CrudWindowsFormsAddoNet
             ItemsCentralesDB oItemsCentralesDB = new ItemsCentralesDB();
             try
             {
-                oItemsCentralesDB.Add(txtCodigo.Text, txtDescripcion.Text, txtPrecioCaja.Text, txtPrecioUnitario.Text);
+                oItemsCentralesDB.Add(txtCodigo.Text, txtDescripcion.Text, decimal.Parse(txtPrecioCaja.Text), decimal.Parse(txtPrecioUnitario.Text));
                 this.Close();
 
             }

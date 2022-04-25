@@ -44,7 +44,7 @@ namespace CrudWindowsFormsAddoNet
                     while (reader.Read())
                     {
 
-                       
+
                         ItemCentral oItemCentral = new ItemCentral();
                         oItemCentral.Id = reader.GetInt32(0);
                         oItemCentral.Codigo = reader.GetString(1);
@@ -53,56 +53,57 @@ namespace CrudWindowsFormsAddoNet
                         oItemCentral.PrecioCaja = reader.GetDecimal(4);
                         ListItemCentral.Add(oItemCentral);
 
-                    } 
+                    }
                     reader.Close();
 
                     connection.Close();
                 }
                 catch (Exception ex)
                 {
-                    throw  new Exception("Hay un error en la base de datos"+ex.Message);
+                    throw new Exception("Hay un error en la base de datos" + ex.Message);
                 }
-                
+
             }
 
             return ListItemCentral;
 
         }
 
-        
-    }
-
-    public void Add(string Codigo, string Descripcion, decimal PrecioUnitario, decimal PrecioCaja)
-    {
-        string query = "insert into Items_Centrales(Codigo, Descripcion, Precio_Unitario, Precio_Caja)" + "(@Codigo, @Descripcion, @Precio_Unitario, @Precio_Caja)";
-
-        using (SqlConnection connection = new SqlConnection(connectionString))
+        public void Add(string Codigo, string Descripcion, decimal PrecioUnitario, decimal PrecioCaja)
         {
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@Codigo", Codigo);
-            command.Parameters.AddWithValue("@Descripcion", Descripcion);
-            command.Parameters.AddWithValue("@Precio_Unitario", PrecioUnitario);
-            command.Parameters.AddWithValue("@Precio_Caja", PrecioCaja);
+            string query = "insert into Items_Centrales(Codigo, Descripcion, Precio_Unitario, Precio_Caja) VALUES (@Codigo, @Descripcion, @Precio_Unitario, @Precio_Caja)";
 
-            try
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Hay un error en la base de datos" + ex.Message);
-            }
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Codigo", Codigo);
+                command.Parameters.AddWithValue("@Descripcion", Descripcion);
+                command.Parameters.AddWithValue("@Precio_Unitario", PrecioUnitario);
+                command.Parameters.AddWithValue("@Precio_Caja", PrecioCaja);
 
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Hay un error en la base de datos" + ex.Message);
+                }
+
+            }
         }
     }
-    public class ItemCentral
-    {
-        public int Id { get; set; }
-        public string Codigo { get; set; }
-        public string Descripcion { get; set; }
-        public decimal PrecioUnitario { get; set; }
-        public decimal PrecioCaja { get; set; }
-    }
+
+  
 }
+public class ItemCentral
+{
+    public int Id { get; set; }
+    public string Codigo { get; set; }
+    public string Descripcion { get; set; }
+    public decimal PrecioUnitario { get; set; }
+    public decimal PrecioCaja { get; set; }
+}
+
